@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "d8a61bcb1d108361",
+        "id": "a1b5d9e3c0ae10a9",
         "type": "tabs",
         "children": [
           {
-            "id": "1e495e015a7db9d4",
+            "id": "092fe1ffb58420fa",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -169,10 +169,11 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "1e495e015a7db9d4",
+  "active": "092fe1ffb58420fa",
   "lastOpenFiles": [
-    "数据结构/2. 线性表.md",
+    "未命名.md",
     "数据结构/3. 栈和队列.md",
+    "数据结构/2. 线性表.md",
     "数据结构/1. 绪论.md",
     "Algorithm/Hash.md",
     "操作系统",
@@ -197,7 +198,6 @@
     "Linux/串口连接访问CLI.md",
     "Linux/SPI总线通信.md",
     "Linux/FFmpeg dev.md",
-    "未命名.md",
     "Linux/Docker构建buildroot环境.md",
     "未命名 1.md",
     "Linux/Linux启动过程.md",

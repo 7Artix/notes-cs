@@ -1,0 +1,1 @@
+Network Layers are most commonly described using the <font color=red><b>OSI Model (7 Layers)</b></font> or the <font color=red><b>TCP/IP Model (4 Layers)</b></font>.

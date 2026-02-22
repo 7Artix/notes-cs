@@ -130,7 +130,7 @@ watch(isHovered, (newVal) => {
 
 `import` 导出, 可以具名导出 `{}` 导出独立的函数, 或者默认导出.
 
-`ref` (Reference) API函数. 创建响应式引用. Vue为了能检测变量的变化, 将值包装成一个对象, 赋给变量.
+`ref` (Reference) API函数. 创建响应式引用. Vue为了能检测变量的变化, 将值包装成一个对象, 赋给变量. **响应式容器**.
 
 `watch` 观察者, 监听某个 `ref` 值的变化, 一旦该值改变, 则执行一个回调函数 (Closure). 两个参数:
 - 被观察对象 ( `isHovered` ).

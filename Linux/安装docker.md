@@ -40,3 +40,10 @@ docker info | grep Proxy
 
  No **Proxy**: localhost,127.0.0.1,192.168.0.0/16
 ```
+
+
+docker相关的进程: `docker` `docker.socket` `containerd`
+
+`docker.socket` 是待机唤醒开关, 当运行 `docker` 命令, 就会唤醒 `docker.service`
+
+`containerd` 是 `docker` 的依赖.

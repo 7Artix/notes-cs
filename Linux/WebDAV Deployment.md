@@ -69,3 +69,63 @@ nginx -t
 systemctl restart nginx
 ```
 
+
+
+# 使用Apache
+
+安装Apache模块:
+
+```shell
+sudo apt update
+sudo apt install apache2
+# 启用 WebDAV 模块
+sudo a2enmod dav
+sudo a2enmod dav_fs
+```
+
+创建共享目录, 并确保Apache有访问权限:
+
+```shell
+sudo mkdir -p /var/www/webdav
+sudo chown www-data:www-data /var/www/webdav
+```
+
+设置用户以及对应的密码文件:
+
+```shell
+# 创建用户密码文件
+sudo htpasswd -c /etc/apache2/webdav.password <username>
+```
+
+<span style="color: red; font-size: 1.1em"> 注意: 后续添加新用户时一定不能加</span> `-c` <span style="color: red; font-size: 1.1em"> 参数.</span> 
+
+创建Apache配置文件 `/etc/apache2/sites-available/webdav.conf` :
+
+```Apache
+Alias /dav /var/www/webdav
+
+<Location /dav>
+    DAV On
+    AuthType Basic
+    AuthName "WebDAV Storage"
+    AuthUserFile /etc/apache2/webdav.password
+    Require valid-user
+</Location>
+```
+
+配置的 `Alias /dav /var/www/webdav` 表示访问 `http://IP/dav` 即可访问连接.
+
+配置并重启:
+
+```shell
+sudo a2ensite webdav.conf
+sudo systemctl restart apache2
+```
+
+Apache的主进程一直在监听 `80` 端口, 之后做URL解析, 当解析到 `/dav` 时, 会匹配到 `webdav.conf` 中的配置.
+
+Apache和Nginx同时启用时可能会有端口冲突问题, 因为在TCP/IP协议中, 一个端口 (如80端口) 在同一个IP地址下, 同一时间只能被一个程序监听.
+
+比较好的解决方案是使用Nginx做**反向代理**. 让Nginx守住 `80` 端口, 并根据URL路劲进行分流, 分流给Apache.
+
+例如让Apache监听一个只有本地能访问的端口, 如 `8080`, 然后当Nginx检测到请求时 `/dav` 时, 将请求转给后端的 `http://127.0.0.1:8080/dav` 交给Apache处理.

@@ -121,13 +121,19 @@ If you wish to copy your credentials to a server, they have been saved to:
 cloudflared tunnel create organ(隧道名)
 ```
 
-配置域名指向, 将子域名交于隧道处理:
+配置域名指向, 将子域名交于隧道处理, 通知Cloudflare将域名指向这个隧道:
 
 ```shell
 cloudflared tunnel route dns organ(隧道名) ssh.7artix.com
+
+
+cloudflared tunnel route dns witch artixzhang.com
+cloudflared tunnel route dns witch www.artixzhang.com
+cloudflared tunnel route dns witch ssh.artixzhang.com
+cloudflared tunnel route dns witch status.artixzhang.com
 ```
 
-编写配置文件 `/etc/cloudflared/config.yml` :
+编写配置文件 `/etc/cloudflared/config.yml` , 配置隧道请求进入后应该如何转发:
 
 ```yaml
 tunnel: d9c7b61f-bcc2-47b7-a91d-b20a27abcdd2(之前的隧道id)
@@ -136,6 +142,22 @@ credentials-file: /root/.cloudflared/d9c7b61f-bcc2-47b7-a91d-b20a27abcdd2.json
 ingress:
   - hostname: ssh.7artix.com
     service: ssh://localhost:13579
+  - service: http_status:404
+```
+
+```yaml
+tunnel: 53e9605c-36d0-407d-86a5-832b20551632
+credentials-file: /root/.cloudflared/53e9605c-36d0-407d-86a5-832b20551632.json
+
+ingress:
+  - hostname: ssh.artixzhang.com
+    service: ssh://localhost:13579
+  - hostname: status.artixzhang.com
+    service: http://localhost:3001
+  - hostname: artixzhang.com
+    service: http://localhost:5555
+  - hostname: www.artixzhang.com
+    service: http://localhost:5555
   - service: http_status:404
 ```
 

@@ -29,3 +29,11 @@ VOP和GPU的区别: 功能侧重
 GPU负责画图, VOP负责显示画好的图.
 
 使用`modetest`查看全部显示硬件信息. 可用`-M`参数指定驱动程序, 如`modetest -M rockchip`
+
+
+开启 DSI-1 接口:
+
+```shell
+echo on > /sys/class/drm/card0-DSI-1/status
+```
+
